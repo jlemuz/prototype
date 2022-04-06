@@ -19,6 +19,7 @@ router.get('/', withAuth, (req, res) => {
       'post_url',
       'title',
       'created_at',
+      'image'
     ],
     include: [
       {
@@ -37,13 +38,18 @@ router.get('/', withAuth, (req, res) => {
     });
 });
 
-router.post('/', withAuth, async (req,res)=>{
+// After images is uploaded, store Buffer data in Post.image field.
+// To render this field, 
+
+router.post('/', withAuth, async (req,res)=>{ 
 
     try{
         const file = req.files.file;
+        console.log(file);
         const fileName = file.name;
         const size = file.data.length;
         const extension = path.extname(fileName);
+        const img = file.data.toString('base64');
 
         const allowedExtensions = /png|jpeg|jpg|gif/;
 
@@ -51,17 +57,20 @@ router.post('/', withAuth, async (req,res)=>{
         if (size > 5000000) throw "File must be less than 5MB";
 
 
-        const md5 = file.md5;
-        const URL = "/uploads/" + md5 + extension;
+        //const md5 = file.md5;
+        //const URL = "/uploads/" + md5 + extension;
 
-        await util.promisify(file.mv)("./public" + URL);
-        res.redirect('/dashboard')
+       // await util.promisify(file.mv)("./public" + URL);
+      
 
         Post.create({
           title: fileName,
-          post_url: URL,
-          user_id: req.session.user_id
+          // image: file.data
+          post_url: fileName,
+          user_id: req.session.user_id,
+          image:img
         })
+        res.redirect('/dashboard')
           .then(dbPostData => res.json(dbPostData))
           .catch(err => {
             console.log(err);

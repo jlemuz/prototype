@@ -17,7 +17,7 @@
  <form method="POST" action="/dashboard" enctype="multipart/form-data">
       <input type="file" name="file" />
       <br>
-      <input type="submit" value="Enter"/>
+      <input type="submit" value="Upload"/>
     </form>
     <br>
 
@@ -32,8 +32,7 @@
       <div class="title">
       </div>
       <div class="meta">
-        <img src= "{{post_url}}" height="200px", length="200px"/>
-      </div>
+<img src="data:image/png;base64,{{image}} " height="200px", length="200px />        </div>
     </article>
   </li>
   {{/each}}
