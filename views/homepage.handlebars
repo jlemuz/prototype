@@ -1,15 +1,14 @@
 <div>You are on the homepage</div>
 
-<ul class="post-list">
-  {{#each posts}}
-  <li>
-    <article class="post">
-      <div class="title">
-      </div>
-      <div class="meta">
+  <ul class="post-list">
+    {{#each posts}}
+    <li>
+      <article class="post">
+        <div class="title">
 
-<img src="data:image/png;base64,{{image}} " height="200px", length="200px />       </div>
-    </article>
-  </li>
+            <img src="data:image/png;base64,{{image}} " height="200px", length="200px />   
+        </div>
+      </article>
+    </li>
   {{/each}}
 </ul>
