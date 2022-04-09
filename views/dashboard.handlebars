@@ -1,6 +1,4 @@
 <main>
-  <h2>Create New Post</h2>
-
   {{!-- <form class="new-post-form">
     <div>
       <label for="post-title">Title</label>
@@ -14,25 +12,41 @@
   </form>
 </main> --}}
 
- <form method="POST" action="/dashboard" enctype="multipart/form-data">
-      <input type="file" name="file" />
-      <br>
-      <input type="submit" value="Upload"/>
+ <form method="POST" action="/dashboard" enctype="multipart/form-data" class="login-form">
+<div class="content">
+  <h2>Upload New Image</h2>
+  <div class="input-field"> <input  type="file" name="file" /> </div>
+  <div class="input-field"> <input class="input-field" type="text" name="title" placeholder="Image Title"/> </div>
+  <div class="input-field"><input class="input-field" type="text" name="description" placeholder="Description"/></div>
+  <div>  <input type="submit" class="button-59" value="Upload"/> </div>
+      
     </form>
     <br>
+</div>
 
 
  {{#if posts.length}}
 <section>
-  <h2>Your Posts</h2>
+  <h2>Your Images</h2>
+
   <ul class="post-list">
   {{#each posts}}
   <li>
-    <article class="post">
+    <article class="login-form card">
       <div class="title">
+          {{ title }}
       </div>
       <div class="meta">
-  <img src="data:image/png;base64,{{image}} " height="200px", length="200px />        </div>
+          <img src="data:image/png;base64,{{image}} " height="200px", length="200px"/>   
+      </div>
+      <div class="title">
+          {{ post_url }}
+      </div>
+      {{ id }}
+  {{!-- <input type="submit" id = {{id}} class="button-59" value="Delete" onclick="deleteFormHandler()"/>  --}}
+  <button id = {{id}} class="button-59" onclick="deleteFormHandler(event)">Delete</button>
+
+
     </article>
   </li>
   {{/each}}
@@ -41,4 +55,4 @@
 {{/if}}
 </section>
 
-<script src="/javascript/add-post.js"></script>
+<script src="/javascript/delete-post.js"></script>

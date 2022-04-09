@@ -64,13 +64,12 @@ router.post('/', withAuth, async (req,res)=>{
       
 
         Post.create({
-          title: fileName,
+          title: req.body.username,
           // image: file.data
-          post_url: fileName,
+          post_url: req.body.description,
           user_id: req.session.user_id,
           image:img
         })
-        res.redirect('/dashboard')
           .then(dbPostData => res.json(dbPostData))
           .catch(err => {
             console.log(err);
@@ -84,10 +83,29 @@ router.post('/', withAuth, async (req,res)=>{
               message: err,
           })
       }
-
+      res.redirect('/dashboard')
 });
 
 
+router.delete('/:id', withAuth, (req, res) => {
+  console.log('id', req.params.id);
+  Post.destroy({
+    where: {
+      id: id
+    }
+  })
+    .then(dbPostData => {
+      if (!dbPostData) {
+        res.status(404).json({ message: 'No post found with this id' });
+        return;
+      }
+      res.json(dbPostData);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
 
 
 
